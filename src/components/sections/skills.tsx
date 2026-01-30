@@ -1,41 +1,45 @@
-import SKILLS from '@/data/skills'
+'use client'
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
+import { skills, RESUME_SKILL_NAMES } from '@/data/skills'
+import { SkillRow } from '@/components/SkillRow'
+import { useEffect } from 'react'
+
+const RESUME_NAMES_SET = new Set(RESUME_SKILL_NAMES)
+
+function validateSkillsInUI() {
+  if (process.env.NODE_ENV !== 'development') return
+  const allFromUI: string[] = []
+  for (const category of Object.values(skills)) {
+    for (const { name } of category) allFromUI.push(name)
+  }
+  const notInResume = allFromUI.filter((n) => !RESUME_NAMES_SET.has(n))
+  if (notInResume.length > 0) {
+    console.warn(
+      '[Skills] The following skills appear in the UI but were not in the extracted resume list:',
+      notInResume,
+    )
+  }
+}
 
 export default function Skills() {
+  useEffect(() => {
+    validateSkillsInUI()
+  }, [])
+
   return (
-    <div className="mb-16">
-      <h2 className="mb-8 text-xl font-heading sm:text-2xl">Skills</h2>
+    <section className="mb-16" aria-labelledby="skills-heading">
+      <h2
+        id="skills-heading"
+        className="mb-8 text-xl font-heading sm:text-2xl"
+      >
+        Skills
+      </h2>
 
-      {SKILLS.map((item, id) => {
-        return (
-          <div key={id}>
-            <h3 className="mb-4 text-lg font-heading sm:text-xl">
-              {item.field}
-            </h3>
-
-            <div className="mb-10 flex flex-wrap gap-5">
-              {item.skills.map((skill, id) => {
-                return (
-                  <TooltipProvider key={id}>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <skill.icon className="h-8 w-8" title="" />
-                      </TooltipTrigger>
-                      <TooltipContent>{skill.skill}</TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                )
-              })}
-            </div>
-          </div>
-        )
-      })}
-    </div>
+      <SkillRow label="Frontend" skills={skills.frontend} />
+      <SkillRow label="Backend" skills={skills.backend} />
+      <SkillRow label="Database" skills={skills.database} />
+      <SkillRow label="DevOps/Tools" skills={skills.devopsTools} />
+      <SkillRow label="Other" skills={skills.other} />
+    </section>
   )
 }
