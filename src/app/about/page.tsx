@@ -5,9 +5,17 @@ import { Highlight } from '@/components/ui/highlight'
 export default function About() {
   return (
     <div className="font-base">
-      <h1 className="mb-8 text-2xl font-heading sm:text-4xl">About</h1>
+      <h1
+        className="mb-8 text-2xl font-heading sm:text-4xl animate-in fade-in-0 slide-in-from-bottom-2 duration-500 fill-mode-both"
+        style={{ animationDelay: '0ms' }}
+      >
+        About
+      </h1>
 
-      <div className="mb-10 text-base sm:text-lg">
+      <div
+        className="mb-10 text-base sm:text-lg animate-in fade-in-0 slide-in-from-bottom-2 duration-500 fill-mode-both"
+        style={{ animationDelay: '80ms' }}
+      >
         <p className="text-justify">
           I'm a frontend engineer focused on building scalable, maintainable <Highlight>SaaS dashboards</Highlight> and product-driven web platforms. I work primarily with <Highlight>Next.js / TypeScript / Tailwind</Highlight>, and I care deeply about clean UI, clear structure, and frontend architecture that holds up as products grow.
           <br />
@@ -19,9 +27,19 @@ export default function About() {
         </p>
       </div>
 
-      <Skills />
+      <div
+        className="animate-in fade-in-0 slide-in-from-bottom-2 duration-500 fill-mode-both"
+        style={{ animationDelay: '160ms' }}
+      >
+        <Skills />
+      </div>
 
-      <Experience />
+      <div
+        className="animate-in fade-in-0 slide-in-from-bottom-2 duration-500 fill-mode-both"
+        style={{ animationDelay: '240ms' }}
+      >
+        <Experience />
+      </div>
     </div>
   )
 }

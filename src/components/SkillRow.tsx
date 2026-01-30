@@ -24,13 +24,14 @@ export function SkillRow({ label, skills, className }: SkillRowProps) {
       <h3 className="mb-4 text-lg font-heading sm:text-xl">{label}</h3>
       <div className="flex flex-wrap items-center gap-4">
         <TooltipProvider delayDuration={0}>
-          {skills.map((skill) => (
+          {skills.map((skill, index) => (
             <Tooltip key={skill.iconKey}>
               <TooltipTrigger asChild>
                 <span
                   className={cn(
-                    'inline-flex shrink-0 cursor-default rounded-base border-2 border-foreground bg-secondary-background p-2 shadow-shadow transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-[var(--spacing-boxShadowX)_calc(var(--spacing-boxShadowY)_+_2px)_0_0_var(--border)]',
+                    'inline-flex shrink-0 cursor-default rounded-base border-2 border-foreground bg-secondary-background p-2 shadow-shadow transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-[var(--spacing-boxShadowX)_calc(var(--spacing-boxShadowY)_+_2px)_0_0_var(--border)] animate-in fade-in-0 zoom-in-95 duration-300 fill-mode-both',
                   )}
+                  style={{ animationDelay: `${index * 25}ms` }}
                   role="img"
                   aria-label={skill.name}
                 >

@@ -13,7 +13,7 @@ const Highlight = React.forwardRef<HTMLSpanElement, HighlightProps>(
       <span
         ref={ref}
         className={cn(
-          'rounded-base px-1 py-[0.05rem]',
+          'rounded-base px-1 py-[0.05rem] transition-colors duration-200',
           variant === 'default' &&
             'bg-chart-1 border-border border-2 border-b-2 border-r-2 shadow-shadow',
           variant === 'border' &&
