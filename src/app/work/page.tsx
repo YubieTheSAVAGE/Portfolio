@@ -1,7 +1,20 @@
+import type { Metadata } from 'next'
 import PROJECTS from '@/data/projects'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import Image from 'next/image'
 import { ArrowDown } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Work',
+  description:
+    'Portfolio projects: IMMO 360, SHAMSIMMO, Flow Board, FiveM Store. SaaS dashboards and web platforms built with Next.js, TypeScript, and Tailwind.',
+  openGraph: {
+    title: 'Work | Ayoub Boudiba',
+    description:
+      'Portfolio projects: SaaS dashboards and web platforms built with Next.js, TypeScript, and Tailwind.',
+    url: '/work',
+  },
+}
 
 export default function Work() {
   return (

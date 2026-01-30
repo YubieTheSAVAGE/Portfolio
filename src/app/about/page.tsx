@@ -1,6 +1,19 @@
+import type { Metadata } from 'next'
 import Experience from '@/components/sections/experience'
 import Skills from '@/components/sections/skills'
 import { Highlight } from '@/components/ui/highlight'
+
+export const metadata: Metadata = {
+  title: 'About',
+  description:
+    'Frontend engineer focused on SaaS dashboards and product-driven web platforms. Next.js, TypeScript, Tailwind. EST Essaouira & 1337 (42 Network). Skills and experience.',
+  openGraph: {
+    title: 'About | Ayoub Boudiba',
+    description:
+      'Frontend engineer focused on SaaS dashboards and product-driven web platforms. Skills and experience.',
+    url: '/about',
+  },
+}
 
 export default function About() {
   return (

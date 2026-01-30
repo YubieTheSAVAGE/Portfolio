@@ -1,62 +1,118 @@
-<img src="public/preview.png" />
+<img src="public/preview.png" alt="Portfolio preview" width="710" />
 
 # Portfolio
 
-Portfolio is a neobrutalism-styled nextjs tailwind template for portfolios.
+A **neobrutalism-styled** Next.js + Tailwind portfolio, based on the [neobrutalism-templates/portfolio](https://github.com/neobrutalism-templates/portfolio) template. It uses bold borders, flat shadows, and a clear typographic hierarchy to present your work and experience.
+
+---
+
+## Features
+
+### Multi-page structure
+
+- **Home** (`/`) — Intro, tech stack, and social/contact links.
+- **About** (`/about`) — Bio, skills by category, and work experience with dates and links.
+- **Work** (`/work`) — Project cards with preview images and optional “Visit” / “Github” links.
+
+Navigation is data-driven from `src/data/nav.ts`. The nav bar hides on scroll-down and shows on scroll-up for a cleaner reading experience.
+
+### Theme (light / dark)
+
+- **next-themes** powers a system-aware light/dark toggle.
+- A theme switcher (sun/moon) lives in the nav; preference is persisted.
+- All neobrutalism colors are defined as CSS variables in `src/app/globals.css` for both `:root` (light) and `.dark`, so the whole site respects the active theme.
+
+### View transitions
+
+- **next-view-transitions** is used for smooth page changes.
+- Internal links use the library’s `<Link>` so route changes are animated instead of full reloads.
+
+### About page: experience & skills
+
+- **Experience** — Entries come from `src/data/experience.ts`. Each role has company (optional website link), role title, date range, and a description that supports multiple paragraphs (split by newlines).
+- **Skills** — Categories and items are defined in `src/data/skills.ts`. Each skill has a name and an `iconKey` used by `SkillIcon` to show the correct Simple Icons icon. Tooltips show the skill name on hover. In development, the app can warn if a skill in the UI is not in the canonical resume list (`RESUME_SKILL_NAMES`).
+- **Highlight** — The `<Highlight>` component in `src/components/ui/highlight.tsx` is used for emphasis in text (default marker style, or `border` / `subtle` variants).
+
+### Work page: projects
+
+- Projects are defined in `src/data/projects.ts`: `name`, `description`, `previewImage`, and optional `liveLink` and `repoUrl`.
+- Each project is rendered as a card with an image (via Next.js `Image` and a fixed aspect ratio), description, and “Visit” / “Github” buttons when the URLs are set.
+
+### Styling and UX
+
+- **Neobrutalism** — Strong borders, offset box shadows, and `rounded-base` (0px) for a blunt, grid-like look. Custom design tokens (e.g. `--main`, `--border`, `--shadow`) drive the style.
+- **Font** — Montserrat (Google Font) is applied in the root layout.
+- **Animations** — `tw-animate-css` is used for entrance animations (fade-in, slide-in, zoom-in) with staggered delays on the About and Work pages.
+- **Scrollbar** — Custom scrollbar colors for light and dark themes in `globals.css`.
+
+---
+
+## How it works
+
+1. **Layout** (`src/app/layout.tsx`) — Wraps the app with `ViewTransitions`, `ThemeProvider`, and a fixed `Nav`. Page content is rendered in a constrained main area below the nav.
+2. **Content** — Copy and structure live in the page components; reusable content (nav, projects, experience, skills, links) is driven by files in `src/data/` and components in `src/components/` and `src/components/sections/`.
+3. **Routing** — Standard Next.js App Router: `src/app/page.tsx` (home), `src/app/about/page.tsx`, `src/app/work/page.tsx`. The nav uses `usePathname()` to highlight the active route.
+4. **Icons** — Social/tech icons use `@icons-pack/react-simple-icons`; the About skills use a custom `SkillIcon` that maps `iconKey` to the correct Simple Icon.
+
+---
 
 ## Get started
 
-[Create a new repo](https://github.com/neobrutalism-templates/portfolio/generate) from this template.
+You can [create a new repo](https://github.com/neobrutalism-templates/portfolio/generate) from the original template, or clone this repo.
 
 ### Installation
 
-This template uses `pnpm` package manager so make sure you have it installed.
-
-To install all dependencies run:
+This project uses **pnpm** (see `packageManager` in `package.json`). A `bun.lock` is also present, so you can use **bun** if you prefer.
 
 ```bash
 pnpm i
+# or
+bun install
 ```
 
-To run the app locally:
+### Run locally
 
 ```bash
-pnpm run dev
+pnpm dev
+# or
+bun run dev
 ```
 
-### Config
+---
 
-- Inside `layout.tsx` update the metadata
-- Inside `page.tsx` update the content
-- Update the `favicon.ico`
+## Config
 
-### Content config
+### Global
 
-#### Links on the home page
+- **Metadata** — In `src/app/layout.tsx`, set `metadata` (e.g. `title`, `description`).
+- **Favicon** — Replace `src/app/favicon.ico`.
 
-To update the links on the home page go to `src/components/links.tsx` and inside `links` array add or remove objects. Each object has 2 properties, `icon`, and `href`. `href` is self-explanatory, and inside `icon` you'll put an icon imported from `@icons-pack/react-simple-icons`. Visit [simpleicons.org](https://simpleicons.org/) to see all the icons. Import them by adding `Si` prefix to their name as I imported them in `links` component.
+### Home page
 
-#### Updating the rest of the content
+- **Copy** — Edit `src/app/page.tsx` (name, role, bio, tech stack array).
+- **Links** — In `src/components/links.tsx`, edit the `links` array. Each entry needs `icon` (from `@icons-pack/react-simple-icons`) and `href`. Use the [Simple Icons](https://simpleicons.org/) site and import with the `Si` prefix (e.g. `SiGithub`).
 
-Inside `data` folder you have the rest of the content you can edit.
+### Nav
 
-#### Updating the `previewImage` in `projects.ts`
+- **Routes** — Edit `src/data/nav.ts` (`NAV_LINKS`: `path` and `text`).
 
-Make sure to put `/` + name of the picture that's inside public folder. e.g. you have a `my-project.png` picture inside `public` folder, you'll type:
+### About page
 
-```ts
-previewImage: '/my-project.png'
-```
+- **Experience** — Edit `src/data/experience.ts`. Each entry: `company`, `role`, `description` (multi-line string), `startDate`, `endDate`, optional `website`.
+- **Skills** — Edit `src/data/skills.ts`. Adjust the `skills` object (categories and `{ name, iconKey }`). Keep `RESUME_SKILL_NAMES` in sync if you use the dev-only validation. Icon keys must match what `SkillIcon` supports (e.g. Simple Icons slug style).
 
-##### Image aspect ratio
+### Work page
 
-Inside `app/work/page.tsx` `previewImage` is wrapped inside AspectRatio component. Change the `ratio` prop so it suits your needs (default preview images are 710 x 260, so I set the ratio to be `71 / 26`).
-
-#### Updating skills
-
-I need to clarify how to edit skills since it looks confusing at first. Inside the `skills.ts` inside the `SKILLS` array, each object in the array is a field of skills (can be anything: frontend, backend, devops, design etc). Each object has a `field` prop which is the field name. Also, each object has a `skills` array where each array member has a `skill` value (used as tooltip value), and `icon` is the icon that will be displayed.
-You update them the same way you'd update links on the home page.
+- **Projects** — Edit `src/data/projects.ts`. Each project: `name`, `description`, `previewImage`, optional `liveLink`, optional `repoUrl`.
+- **Preview images** — Put assets in `public/` and set `previewImage` to `'/' + filename`, e.g. `previewImage: '/my-project.png'`.
+- **Aspect ratio** — In `src/app/work/page.tsx`, the preview uses `<AspectRatio ratio={71 / 26}>`. Change the `ratio` prop if your images use a different aspect ratio (default assumes 710×260).
 
 ### Styling
 
-To change the styling visit [styling docs](https://neobrutalism.dev/styling), and copy the desired styling to your css like it's shown in the styling docs.
+- **Neobrutalism** — To change colors or tokens, edit `:root` and `.dark` in `src/app/globals.css`. For more options, see the [styling docs](https://neobrutalism.dev/styling) and copy the desired setup into your CSS.
+
+---
+
+## License
+
+See [LICENSE](LICENSE).
