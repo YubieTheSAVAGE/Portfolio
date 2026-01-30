@@ -1,5 +1,7 @@
 import PROJECTS from '@/data/projects'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
+import Image from 'next/image'
+import { ArrowDown } from 'lucide-react'
 
 export default function Work() {
   return (
@@ -17,8 +19,10 @@ export default function Work() {
                 className="border-border shadow-shadow rounded-base -bottom-[2px]! border-2"
                 ratio={71 / 26}
               >
-                <img
-                  className="rounded-base w-full"
+                <Image
+                  width={710}
+                  height={260}
+                  className="rounded-base w-full h-full object-cover"
                   src={`${project.previewImage}`}
                   alt={project.name}
                 />
@@ -32,6 +36,7 @@ export default function Work() {
                 <p className="mt-2">{project.description}</p>
 
                 <div className="mt-8 grid grid-cols-2 gap-5">
+                  {project.liveLink && (
                   <a
                     className="border-border bg-secondary-background text-foreground shadow-shadow rounded-base font-base hover:translate-x-boxShadowX hover:translate-y-boxShadowY cursor-pointer border-2 px-4 py-2 text-center text-sm transition-all hover:shadow-none sm:text-base"
                     href={project.liveLink}
@@ -39,6 +44,8 @@ export default function Work() {
                   >
                     Visit
                   </a>
+                  )}
+                  {project.repoUrl && (
                   <a
                     className="border-border bg-secondary-background text-foreground shadow-shadow rounded-base font-base hover:translate-x-boxShadowX hover:translate-y-boxShadowY cursor-pointer border-2 px-4 py-2 text-center text-sm transition-all hover:shadow-none sm:text-base"
                     href={project.repoUrl}
@@ -46,11 +53,21 @@ export default function Work() {
                   >
                     Github
                   </a>
+                  )}
                 </div>
               </div>
             </div>
           )
         })}
+      </div>
+
+      <div className="mt-12 flex flex-col items-center justify-center gap-3 text-main-foreground/70 dark:text-white">
+        <p className="font-base text-sm sm:text-base">
+          More to come — I haven&apos;t posted everything yet
+        </p>
+        <ArrowDown
+          className="size-4 animate-bounce"
+        />
       </div>
     </div>
   )
