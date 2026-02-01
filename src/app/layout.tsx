@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
   },
-  category: 'technology',
+  category: 'technology, portfolio, web development, frontend development, backend development, full stack development, software engineering, software development, software architecture, software design, software engineering, software development, software architecture, software design, software engineering, software development, software architecture, software design',
   icons: {
     icon: '/favicon.ico',
   },
