@@ -54,6 +54,12 @@ Navigation is data-driven from `src/data/nav.ts`. The nav bar hides on scroll-do
 3. **Routing** — Standard Next.js App Router: `src/app/page.tsx` (home), `src/app/about/page.tsx`, `src/app/work/page.tsx`. The nav uses `usePathname()` to highlight the active route.
 4. **Icons** — Social/tech icons use `@icons-pack/react-simple-icons`; the About skills use a custom `SkillIcon` that maps `iconKey` to the correct Simple Icon.
 
+### SEO & Google indexing
+
+- **Sitemap** — `src/app/sitemap.ts` generates `/sitemap.xml` with Home, About, and Work (uses `NEXT_PUBLIC_SITE_URL`).
+- **Robots** — `src/app/robots.ts` serves `/robots.txt` allowing all crawlers and pointing to the sitemap.
+- To **show up on Google**: deploy the site, then go to [Google Search Console](https://search.google.com/search-console), add the property (e.g. `https://boudiba.me`), and submit the sitemap URL (`https://boudiba.me/sitemap.xml`). Use “URL inspection” → “Request indexing” for the homepage to speed up the first crawl.
+
 ---
 
 ## Get started
