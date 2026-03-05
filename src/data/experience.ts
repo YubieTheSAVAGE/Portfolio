@@ -9,7 +9,7 @@ const PAST_ROLES: {
   {
     company: 'Digisyma',
     website: 'https://digisyma.com',
-    role: 'Frontend lead developer & Team coordinator',
+    role: 'Software engineer (Frontend Lead)',
     description:
       'Led frontend development for multiple production SaaS platforms, including IMMO 360 and SHAMSIMMO, serving real business users.\n' +
       'Built scalable UI architecture, authentication flows, and dashboard interfaces using Next.js, React, and TypeScript, and shipped features to production with a strong focus on performance and UI consistency.',
@@ -19,7 +19,7 @@ const PAST_ROLES: {
   {
     company: 'CODLead',
     website: 'https://codlead.ma',
-    role: 'Co-Founder & Tech Lead',
+    role: 'Frontend Engineer & Co-Founder',
     description:
       'Built internal dashboards for e-commerce logistics operations, integrating frontend interfaces with RESTful APIs to support day-to-day business workflows.\n' + 
       'Contributed to frontend architecture and technical decisions on a multi-role platform (admins, agents, merchants), focusing on clarity, scalability, and role-based access.' +

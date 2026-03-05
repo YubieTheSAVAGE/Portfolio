@@ -6,11 +6,11 @@ import { Highlight } from '@/components/ui/highlight'
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'Frontend engineer focused on SaaS dashboards and product-driven web platforms. Next.js, TypeScript, Tailwind. EST Essaouira & 1337 (42 Network). Skills and experience.',
+    'Software engineer focused on SaaS dashboards and product-driven web platforms. Next.js, TypeScript, Tailwind. EST Essaouira & 1337 (42 Network). Skills and experience.',
   openGraph: {
     title: 'About | Ayoub Boudiba',
     description:
-      'Frontend engineer focused on SaaS dashboards and product-driven web platforms. Skills and experience.',
+      'Software engineer focused on SaaS dashboards and product-driven web platforms. Skills and experience.',
     url: '/about',
   },
 }
@@ -30,7 +30,7 @@ export default function About() {
         style={{ animationDelay: '80ms' }}
       >
         <p className="text-justify">
-          I'm a frontend engineer focused on building scalable, maintainable <Highlight>SaaS dashboards</Highlight> and product-driven web platforms. I work primarily with <Highlight>Next.js / TypeScript / Tailwind</Highlight>, and I care deeply about clean UI, clear structure, and frontend architecture that holds up as products grow.
+          I'm a software engineer focused on building scalable, maintainable <Highlight>SaaS dashboards</Highlight> and product-driven web platforms. I work primarily with <Highlight>Next.js / TypeScript / Tailwind</Highlight>, and I care deeply about clean UI, clear structure, and software architecture that holds up as products grow.
           <br />
           <br />
           I enjoy working close to the product — translating requirements into well-designed interfaces, thinking through <Highlight>UX, role-based flows</Highlight>, and owning features from idea to production. I've contributed to and led frontend development on production-level projects, making decisions around application structure, authentication flows, and user experience across different roles.

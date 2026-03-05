@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <div className="font-base">
       <h1 className="text-2xl font-heading sm:text-4xl">Ayoub BOUDIBA</h1>
-      <p className="mt-2 text-lg sm:text-xl">Frontend Engineer</p>
+      <p className="mt-2 text-lg sm:text-xl">Software Engineer</p>
       <div className="mt-8 text-base sm:text-lg">
         <p>
           I build scalable SaaS dashboards and product-focused web platforms.{' '}
