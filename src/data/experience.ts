@@ -7,6 +7,16 @@ const PAST_ROLES: {
   website?: string
 }[] = [
   {
+    company: 'Mergeflo INC',
+    website: 'https://mergeflo.com',
+    role: 'Software Engineer Intern',
+    description:
+      'Building agentic AI systems for blog generation and SEO automation, designing autonomous workflows that research, write, and optimize content end-to-end.\n' +
+      'Working across LLM orchestration, tooling, and product surfaces to turn AI agents into reliable, production-ready features.',
+    startDate: 'April 2026',
+    endDate: 'Present',
+  },
+  {
     company: 'Digisyma',
     website: 'https://digisyma.com',
     role: 'Software engineer (Frontend Lead)',
