@@ -1,26 +1,11 @@
 import type { MetadataRoute } from 'next'
-
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://boudiba.me'
+import { NAV_LINKS } from '@/data/nav'
+import { siteConfig } from '@/site.config'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/work`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-  ]
+  return NAV_LINKS.map((link) => ({
+    url: `${siteConfig.url}${link.path === '/' ? '' : link.path}`,
+    changeFrequency: 'monthly',
+    priority: link.path === '/' ? 1 : 0.9,
+  }))
 }

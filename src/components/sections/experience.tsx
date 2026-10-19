@@ -1,52 +1,70 @@
 import PAST_ROLES from '@/data/experience'
-import { Highlight } from '../ui/highlight'
-
-function Description({ text }: { text: string }) {
-  const paragraphs = text.trim().split(/\n+/).filter(Boolean)
-  return (
-    <div className="space-y-3">
-      {paragraphs.map((paragraph, i) => (
-        <p key={i} className="text-justify">
-          {paragraph}
-        </p>
-      ))}
-    </div>
-  )
-}
+import { Highlight } from '@/components/ui/highlight'
+import { Reveal } from '@/components/reveal'
+import { formatMonth } from '@/lib/utils'
 
 export default function Experience() {
   return (
-    <div className="mb-16">
-      <h2 className="mb-8 text-xl font-heading sm:text-2xl">Experience</h2>
+    <section className="mb-16" aria-labelledby="experience-heading">
+      <h2
+        id="experience-heading"
+        className="font-display mb-8 text-xl sm:text-2xl"
+      >
+        Experience
+      </h2>
 
-      {PAST_ROLES.map((role, index) => (
-        <div
-          key={`${role.company}-${role.role}`}
-          className="mb-8 animate-in fade-in-0 slide-in-from-bottom-2 duration-300 fill-mode-both"
-          style={{ animationDelay: `${index * 60}ms` }}
-        >
-          <h3 className="text-lg font-heading sm:text-xl">
-            {role.role} @{' '}
-            {role.website ? (
-              <a
-                href={role.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block underline decoration-muted-foreground/40 underline-offset-2 transition-all duration-200 hover:decoration-foreground hover:translate-x-0.5"
-              >
-                <Highlight>{role.company}</Highlight>
-              </a>
-            ) : (
-              <Highlight>{role.company}</Highlight>
-            )}
-          </h3>
+      <ol className="border-border relative ml-2 border-l-2 pl-6 sm:pl-8">
+        {PAST_ROLES.map((role) => (
+          <li
+            key={`${role.company}-${role.role}`}
+            className="relative mb-8 last:mb-0"
+          >
+            <span
+              aria-hidden
+              className="border-border absolute top-5 -left-[33px] size-4 rotate-45 border-2 sm:-left-[41px]"
+              style={{
+                background: role.end ? 'var(--secondary-background)' : 'var(--main)',
+              }}
+            />
+            <Reveal>
+              <article className="border-border bg-secondary-background shadow-shadow rounded-base border-2 p-4 sm:p-5">
+                <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+                  <h3 className="font-heading text-base sm:text-lg">
+                    {role.role} @{' '}
+                    {role.website ? (
+                      <a
+                        href={role.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="focus-visible:ring-ring rounded-base focus-visible:ring-2 focus-visible:outline-none"
+                      >
+                        <Highlight>{role.company}</Highlight>
+                      </a>
+                    ) : (
+                      <Highlight>{role.company}</Highlight>
+                    )}
+                  </h3>
+                  <span className="border-border bg-background rounded-base shrink-0 border-2 px-2 py-0.5 text-xs font-semibold sm:text-sm">
+                    {formatMonth(role.start)} — {formatMonth(role.end)}
+                  </span>
+                </div>
 
-          <p className="mb-4 mt-0.5 text-sm text-foreground/70">
-            {role.startDate} — {role.endDate}
-          </p>
-          <Description text={role.description} />
-        </div>
-      ))}
-    </div>
+                <ul className="mt-4 space-y-2 text-sm sm:text-base">
+                  {role.description.map((line) => (
+                    <li key={line} className="flex gap-3">
+                      <span
+                        aria-hidden
+                        className="bg-foreground mt-2 size-1.5 shrink-0"
+                      />
+                      <span>{line}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </Reveal>
+          </li>
+        ))}
+      </ol>
+    </section>
   )
 }

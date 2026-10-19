@@ -21,7 +21,7 @@ export function SkillRow({ label, skills, className }: SkillRowProps) {
 
   return (
     <div className={cn('mb-10 last:mb-0', className)}>
-      <h3 className="mb-4 text-lg font-heading sm:text-xl">{label}</h3>
+      <h3 className="font-heading mb-4 text-base sm:text-lg">{label}</h3>
       <div className="flex flex-wrap items-center gap-4">
         <TooltipProvider delayDuration={0}>
           {skills.map((skill, index) => (
@@ -29,11 +29,12 @@ export function SkillRow({ label, skills, className }: SkillRowProps) {
               <TooltipTrigger asChild>
                 <span
                   className={cn(
-                    'inline-flex shrink-0 cursor-default rounded-base border-2 border-foreground bg-secondary-background p-2 shadow-shadow transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-[var(--spacing-boxShadowX)_calc(var(--spacing-boxShadowY)_+_2px)_0_0_var(--border)] animate-in fade-in-0 zoom-in-95 duration-300 fill-mode-both',
+                    'inline-flex shrink-0 cursor-default rounded-base focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none border-2 border-foreground bg-secondary-background p-2 shadow-shadow transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-[var(--spacing-boxShadowX)_calc(var(--spacing-boxShadowY)_+_2px)_0_0_var(--border)] animate-in fade-in-0 zoom-in-95 duration-300 fill-mode-both',
                   )}
                   style={{ animationDelay: `${index * 25}ms` }}
                   role="img"
                   aria-label={skill.name}
+                  tabIndex={0}
                 >
                   <SkillIcon name={skill.name} iconKey={skill.iconKey} />
                 </span>

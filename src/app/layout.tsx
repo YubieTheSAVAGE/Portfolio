@@ -1,37 +1,34 @@
-import type { Metadata } from 'next'
-import { Montserrat } from 'next/font/google'
+import type { Metadata, Viewport } from 'next'
+import { Archivo_Black, Montserrat } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/nav'
+import Footer from '@/components/footer'
 import { ViewTransitions } from 'next-view-transitions'
 import { ThemeProvider } from '@/components/theme-provider'
+import { siteConfig } from '@/site.config'
 
-const montserrat = Montserrat({ subsets: ['latin'] })
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+})
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://boudiba.me'
+const archivoBlack = Archivo_Black({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-archivo-black',
+})
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: 'Ayoub Boudiba | Software Engineer',
-    template: '%s | Ayoub Boudiba',
+    default: `${siteConfig.name} | ${siteConfig.title}`,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    'Software Engineer building scalable SaaS dashboards and product-focused web platforms. Next.js, TypeScript, Tailwind. EST Essaouira & 1337 (42 Network).',
-  keywords: [
-    'Ayoub Boudiba',
-    'Software Engineer',
-    'Frontend Developer',
-    'React',
-    'Next.js',
-    'TypeScript',
-    'Tailwind CSS',
-    'SaaS',
-    'web development',
-    'portfolio',
-  ],
-  authors: [{ name: 'Ayoub Boudiba', url: siteUrl }],
-  creator: 'Ayoub Boudiba',
-  publisher: 'Ayoub Boudiba',
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
   robots: {
     index: true,
     follow: true,
@@ -43,34 +40,39 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: siteUrl,
-    siteName: 'Ayoub Boudiba',
-    title: 'Ayoub Boudiba | Software Engineer',
-    description:
-      'Software Engineer building scalable SaaS dashboards and product-focused web platforms. Next.js, TypeScript, Tailwind.',
-    images: [
-      {
-        url: '/preview.png',
-        width: 1200,
-        height: 630,
-        alt: 'Ayoub Boudiba — Software Engineer portfolio',
-      },
-    ],
+    url: '/',
+    siteName: siteConfig.name,
+    title: `${siteConfig.name} | ${siteConfig.title}`,
+    description: siteConfig.description,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ayoub Boudiba | Software Engineer',
-    description:
-      'Software Engineer building scalable SaaS dashboards and product-focused web platforms. Next.js, TypeScript, Tailwind.',
-    images: ['/preview.png'],
+    title: `${siteConfig.name} | ${siteConfig.title}`,
+    description: siteConfig.description,
   },
   alternates: {
-    canonical: siteUrl,
+    canonical: '/',
   },
-  category: 'technology, portfolio, web development, frontend development, backend development, full stack development, software engineering, software development, software architecture, software design, software engineering, software development, software architecture, software design, software engineering, software development, software architecture, software design',
-  icons: {
-    icon: '/favicon.ico',
-  },
+  category: 'technology',
+}
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#eef5df' },
+    { media: '(prefers-color-scheme: dark)', color: '#1a2114' },
+  ],
+}
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: siteConfig.name,
+  jobTitle: siteConfig.title,
+  url: siteConfig.url,
+  email: `mailto:${siteConfig.email}`,
+  sameAs: siteConfig.socials
+    .map((s) => s.href)
+    .filter((href) => href.startsWith('http')),
 }
 
 export default function RootLayout({
@@ -80,13 +82,34 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html suppressHydrationWarning lang="en">
-        <body className={montserrat.className}>
+      <html
+        suppressHydrationWarning
+        lang="en"
+        className={`${montserrat.variable} ${archivoBlack.variable}`}
+      >
+        <body className="font-base flex min-h-dvh flex-col">
+          <noscript>
+            <style>{'.reveal{opacity:1!important;translate:none!important}'}</style>
+          </noscript>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+          />
+          <a
+            href="#main"
+            className="border-border bg-main text-main-foreground shadow-shadow font-heading fixed top-3 left-3 z-[60] -translate-y-24 border-2 px-3 py-2 transition-transform focus:translate-y-0"
+          >
+            Skip to content
+          </a>
           <ThemeProvider attribute="class" disableTransitionOnChange>
             <Nav />
-            <div className="text-foreground mx-auto w-[750px] max-w-full px-5 pt-28 pb-10">
+            <main
+              id="main"
+              className="text-foreground mx-auto w-[750px] max-w-full flex-1 px-5 pt-28 pb-16"
+            >
               {children}
-            </div>
+            </main>
+            <Footer />
           </ThemeProvider>
         </body>
       </html>
