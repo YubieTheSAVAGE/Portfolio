@@ -7,7 +7,7 @@
 
 A **neobrutalism** portfolio built with Next.js 16, React 19 and Tailwind CSS v4. Thick borders, hard shadows, loud lime — and a hero you can actually play with: **throw the stack stickers into the bin** and chase a combo.
 
-**Live:** [boudiba.me](https://boudiba.me)
+**Live:** [boudiba.me](https://www.boudiba.me)
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FYubieTheSAVAGE%2FPortfolio&env=NEXT_PUBLIC_SITE_URL&envDescription=Your%20site%20URL%20without%20trailing%20slash%2C%20e.g.%20https%3A%2F%2Fyourname.dev)
 

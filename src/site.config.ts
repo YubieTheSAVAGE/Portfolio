@@ -32,7 +32,7 @@ export const siteConfig = {
   ],
 
   /** Set NEXT_PUBLIC_SITE_URL in production. No trailing slash. */
-  url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://boudiba.me').replace(/\/$/, ''),
+  url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.boudiba.me').replace(/\/$/, ''),
   /** Linked from the footer "Use this template" button. */
   repoUrl: 'https://github.com/YubieTheSAVAGE/Portfolio',
 
