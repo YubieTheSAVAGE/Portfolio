@@ -1,124 +1,71 @@
-<img src="public/preview.png" alt="Portfolio preview" width="710" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/preview-dark.png" />
+  <img src=".github/preview-light.png" alt="Portfolio preview" width="760" />
+</picture>
 
-# Portfolio
+# Neobrutal Portfolio
 
-A **neobrutalism-styled** Next.js + Tailwind portfolio, based on the [neobrutalism-templates/portfolio](https://github.com/neobrutalism-templates/portfolio) template. It uses bold borders, flat shadows, and a clear typographic hierarchy to present your work and experience.
+A **neobrutalism** portfolio built with Next.js 16, React 19 and Tailwind CSS v4. Thick borders, hard shadows, loud lime — and a hero you can actually play with: **throw the stack stickers into the bin** and chase a combo.
+
+**Live:** [boudiba.me](https://boudiba.me)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FYubieTheSAVAGE%2FPortfolio&env=NEXT_PUBLIC_SITE_URL&envDescription=Your%20site%20URL%20without%20trailing%20slash%2C%20e.g.%20https%3A%2F%2Fyourname.dev)
 
 ---
 
 ## Features
 
-### Multi-page structure
-
-- **Home** (`/`) — Intro, tech stack, and social/contact links.
-- **About** (`/about`) — Bio, skills by category, and work experience with dates and links.
-- **Work** (`/work`) — Project cards with preview images and optional “Visit” / “Github” links.
-
-Navigation is data-driven from `src/data/nav.ts`. The nav bar hides on scroll-down and shows on scroll-up for a cleaner reading experience.
-
-### Theme (light / dark)
-
-- **next-themes** powers a system-aware light/dark toggle.
-- A theme switcher (sun/moon) lives in the nav; preference is persisted.
-- All neobrutalism colors are defined as CSS variables in `src/app/globals.css` for both `:root` (light) and `.dark`, so the whole site respects the active theme.
-
-### View transitions
-
-- **next-view-transitions** is used for smooth page changes.
-- Internal links use the library’s `<Link>` so route changes are animated instead of full reloads.
-
-### About page: experience & skills
-
-- **Experience** — Entries come from `src/data/experience.ts`. Each role has company (optional website link), role title, date range, and a description that supports multiple paragraphs (split by newlines).
-- **Skills** — Categories and items are defined in `src/data/skills.ts`. Each skill has a name and an `iconKey` used by `SkillIcon` to show the correct Simple Icons icon. Tooltips show the skill name on hover. In development, the app can warn if a skill in the UI is not in the canonical resume list (`RESUME_SKILL_NAMES`).
-- **Highlight** — The `<Highlight>` component in `src/components/ui/highlight.tsx` is used for emphasis in text (default marker style, or `border` / `subtle` variants).
-
-### Work page: projects
-
-- Projects are defined in `src/data/projects.ts`: `name`, `description`, `previewImage`, and optional `liveLink` and `repoUrl`.
-- Each project is rendered as a card with an image (via Next.js `Image` and a fixed aspect ratio), description, and “Visit” / “Github” buttons when the URLs are set.
-
-### Styling and UX
-
-- **Neobrutalism** — Strong borders, offset box shadows, and `rounded-base` (0px) for a blunt, grid-like look. Custom design tokens (e.g. `--main`, `--border`, `--shadow`) drive the style.
-- **Font** — Montserrat (Google Font) is applied in the root layout.
-- **Animations** — `tw-animate-css` is used for entrance animations (fade-in, slide-in, zoom-in) with staggered delays on the About and Work pages.
-- **Scrollbar** — Custom scrollbar colors for light and dark themes in `globals.css`.
-
----
-
-## How it works
-
-1. **Layout** (`src/app/layout.tsx`) — Wraps the app with `ViewTransitions`, `ThemeProvider`, and a fixed `Nav`. Page content is rendered in a constrained main area below the nav.
-2. **Content** — Copy and structure live in the page components; reusable content (nav, projects, experience, skills, links) is driven by files in `src/data/` and components in `src/components/` and `src/components/sections/`.
-3. **Routing** — Standard Next.js App Router: `src/app/page.tsx` (home), `src/app/about/page.tsx`, `src/app/work/page.tsx`. The nav uses `usePathname()` to highlight the active route.
-4. **Icons** — Social/tech icons use `@icons-pack/react-simple-icons`; the About skills use a custom `SkillIcon` that maps `iconKey` to the correct Simple Icon.
-
-### SEO & Google indexing
-
-- **Sitemap** — `src/app/sitemap.ts` generates `/sitemap.xml` with Home, About, and Work (uses `NEXT_PUBLIC_SITE_URL`).
-- **Robots** — `src/app/robots.ts` serves `/robots.txt` allowing all crawlers and pointing to the sitemap.
-- To **show up on Google**: deploy the site, then go to [Google Search Console](https://search.google.com/search-console), add the property (e.g. `https://boudiba.me`), and submit the sitemap URL (`https://boudiba.me/sitemap.xml`). Use “URL inspection” → “Request indexing” for the homepage to speed up the first crawl.
-
----
+- **Sticker game hero.** Drag and throw your stack stickers into the bin. Tiny custom physics (no library), combos, best score saved per visitor and shown in the footer. Sleeps when nothing moves, pauses offscreen, and turns into a static row with `prefers-reduced-motion`.
+- **One config file.** Name, title, bio, socials, email, status badge and SEO all come from `src/site.config.ts`.
+- **Generated OG images.** Every page gets a neobrutal share card (`opengraph-image.tsx`) built from your config. Favicon too.
+- **Pages:** Home (hero, game, stack marquee, featured work), About (bio, skills, experience timeline), Work (project cards with tags), and a 404 page.
+- **Light / dark** theme with `next-themes`, page transitions with `next-view-transitions`, scroll reveals.
+- **SEO:** per-page canonical URLs, sitemap, robots, JSON-LD `Person`, theme color.
+- **Accessible:** skip link, landmarks, labelled icon links, keyboard-focusable skill tooltips, reduced motion respected.
 
 ## Get started
 
-You can [create a new repo](https://github.com/neobrutalism-templates/portfolio/generate) from the original template, or clone this repo.
+1. Click **Use this template** at the top of this repo (or the Deploy button above).
+2. Install and run:
 
-### Installation
+   ```bash
+   bun install
+   bun dev
+   ```
 
-This project uses **pnpm** (see `packageManager` in `package.json`). A `bun.lock` is also present, so you can use **bun** if you prefer.
+3. Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SITE_URL` (also set it in your host's env vars).
+
+## Customize
+
+| What | Where |
+| --- | --- |
+| Name, title, bio, email, socials, status badge, SEO keywords, sticker set | `src/site.config.ts` |
+| Projects (tags, year, `featured` for the home page) | `src/data/projects.ts` + images in `public/` |
+| Experience timeline (`start` / `end` as `YYYY-MM`) | `src/data/experience.ts` |
+| Skills by category | `src/data/skills.ts` |
+| Nav links | `src/data/nav.ts` |
+| Colors, shadows, fonts | `src/app/globals.css` (`:root` and `.dark`) and `src/app/layout.tsx` |
+
+**Highlight words in your bio** by wrapping them in `==double equals==` inside `about` in `site.config.ts`.
+
+**Add a skill or sticker icon:** import the icon from [`@icons-pack/react-simple-icons`](https://simpleicons.org/) (or `lucide-react`) and add it to the maps in `src/components/SkillIcon.tsx`, then use its key in `skills.ts` or `heroStack`. Unknown keys fall back to a text badge.
+
+**Tune the game:** gravity, bounce and friction live at the top of `src/components/sticker-game/physics.ts`; combo window and throw speed at the top of `sticker-game.tsx`.
+
+**Preview images** are shown at a 71:26 ratio (e.g. 1420×520).
+
+## Show up on Google
+
+Deploy, open [Google Search Console](https://search.google.com/search-console), add your domain, and submit `https://your-domain/sitemap.xml`. Use **URL inspection → Request indexing** on the homepage to speed up the first crawl.
+
+## Scripts
 
 ```bash
-pnpm i
-# or
-bun install
+bun dev      # dev server
+bun run build
+bun run lint
 ```
 
-### Run locally
+## Credits
 
-```bash
-pnpm dev
-# or
-bun run dev
-```
-
----
-
-## Config
-
-### Global
-
-- **Metadata** — In `src/app/layout.tsx`, set `metadata` (e.g. `title`, `description`).
-- **Favicon** — Replace `src/app/favicon.ico`.
-
-### Home page
-
-- **Copy** — Edit `src/app/page.tsx` (name, role, bio, tech stack array).
-- **Links** — In `src/components/links.tsx`, edit the `links` array. Each entry needs `icon` (from `@icons-pack/react-simple-icons`) and `href`. Use the [Simple Icons](https://simpleicons.org/) site and import with the `Si` prefix (e.g. `SiGithub`).
-
-### Nav
-
-- **Routes** — Edit `src/data/nav.ts` (`NAV_LINKS`: `path` and `text`).
-
-### About page
-
-- **Experience** — Edit `src/data/experience.ts`. Each entry: `company`, `role`, `description` (multi-line string), `startDate`, `endDate`, optional `website`.
-- **Skills** — Edit `src/data/skills.ts`. Adjust the `skills` object (categories and `{ name, iconKey }`). Keep `RESUME_SKILL_NAMES` in sync if you use the dev-only validation. Icon keys must match what `SkillIcon` supports (e.g. Simple Icons slug style).
-
-### Work page
-
-- **Projects** — Edit `src/data/projects.ts`. Each project: `name`, `description`, `previewImage`, optional `liveLink`, optional `repoUrl`.
-- **Preview images** — Put assets in `public/` and set `previewImage` to `'/' + filename`, e.g. `previewImage: '/my-project.png'`.
-- **Aspect ratio** — In `src/app/work/page.tsx`, the preview uses `<AspectRatio ratio={71 / 26}>`. Change the `ratio` prop if your images use a different aspect ratio (default assumes 710×260).
-
-### Styling
-
-- **Neobrutalism** — To change colors or tokens, edit `:root` and `.dark` in `src/app/globals.css`. For more options, see the [styling docs](https://neobrutalism.dev/styling) and copy the desired setup into your CSS.
-
----
-
-## License
-
-See [LICENSE](LICENSE).
+Based on [neobrutalism-templates/portfolio](https://github.com/neobrutalism-templates/portfolio) by Samuel Breznjak. Styling tokens from [neobrutalism.dev](https://neobrutalism.dev). MIT licensed, see [LICENSE](LICENSE).

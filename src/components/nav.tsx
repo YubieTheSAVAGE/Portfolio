@@ -55,9 +55,9 @@ export default function Nav() {
     >
       <nav
         aria-label="Main"
-        className="text-main-foreground border-border shadow-shadow rounded-base bg-main font-base w450:gap-4 mx-auto flex w-max max-w-[calc(100vw-1.5rem)] flex-wrap items-center gap-5 border-2 p-2.5 px-4 text-sm sm:px-5 sm:text-base"
+        className="text-main-foreground border-border shadow-shadow rounded-base bg-main font-heading w450:gap-3 mx-auto flex w-max max-w-[calc(100vw-1.5rem)] flex-wrap items-center gap-5 border-2 p-2.5 px-4 text-sm sm:px-5 sm:text-base"
       >
-        <ul className="flex list-none flex-wrap items-center gap-5 w450:gap-4">
+        <ul className="flex list-none flex-wrap items-center gap-5 w450:gap-2">
           {NAV_LINKS.map((link) => (
             <li key={link.path}>
               <Link

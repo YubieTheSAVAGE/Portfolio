@@ -2,6 +2,8 @@
 @import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
+/* Small-phone tweaks (max-width, unlike sm:/md:) */
+@custom-variant w450 (@media (max-width: 450px));
 :root {
   --background: oklch(95.37% 0.0549 125.19);
   --secondary-background: oklch(100% 0 0);
@@ -54,16 +56,99 @@
 
   --spacing-boxShadowX: -4px;
   --spacing-boxShadowY: 4px;
-  --spacing-reverseBoxShadowX: --4px;
+  --spacing-reverseBoxShadowX: 4px;
   --spacing-reverseBoxShadowY: -4px;
   --radius-base: 0px;
   --shadow-shadow: var(--shadow);
-  --font-weight-base: 700;
+  --font-weight-base: 500;
   --font-weight-heading: 800;
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-archivo-black), var(--font-montserrat), ui-sans-serif, sans-serif;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-pop: pop 700ms ease-out forwards;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes pop {
+    0% {
+      opacity: 1;
+      transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(0.6);
+    }
+  }
 }
 
 body {
   background-color: var(--background);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--main);
+  color: var(--main-foreground);
+}
+
+/* Scroll reveal (see src/components/reveal.tsx) */
+.reveal {
+  opacity: 0;
+  translate: 0 16px;
+  transition:
+    opacity 500ms ease-out,
+    translate 500ms ease-out;
+}
+
+.reveal[data-visible] {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* Page transitions (next-view-transitions) */
+::view-transition-old(root) {
+  animation: 180ms ease-in both vt-out;
+}
+
+::view-transition-new(root) {
+  animation: 260ms ease-out both vt-in;
+}
+
+@keyframes vt-out {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after,
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    translate: none;
+  }
 }
 
 body {
